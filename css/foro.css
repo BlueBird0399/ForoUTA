@@ -1,0 +1,39 @@
+.avatar-user{
+ /* cambia estos dos valores para definir el tamaño de tu círculo */
+ height: 40px;
+ width: 40px;
+ /* los siguientes valores son independientes del tamaño del círculo */
+ background-repeat: no-repeat;
+ background-position: 50%;
+ border-radius: 50%;
+ background-size: 100% auto;
+}
+div .avatar {
+    /* cambia estos dos valores para definir el tamaño de tu círculo */
+    height: 50px;
+    width: 50px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+  }
+.tit-pub{
+text-decoration: none;
+ color: navy;
+}
+.nic-usu{
+ text-decoration: none;
+ color: navy;
+}
+.send-reply {
+  color: white;
+  font-size: 13px;
+  height: 25px;
+  width: 60px;
+  border-radius: 5px;
+  background-color: #0d6efd;
+  display: block;
+  margin-left: auto;
+  text-align: center;
+}
