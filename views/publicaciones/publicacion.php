@@ -6,7 +6,7 @@ $userAvatar;
 if(isset($_GET["publi"]))
 {
 $publi=$_GET["publi"];
-require("controllers/BDController/connectionController.php");
+require("../../controllers/BDController/connectionController.php");
 $connection = new connection('localhost','root','','bd_for_grup');
 $searchUser="SELECT NIC_USU,FOT_USU FROM usuario  WHERE CED_USU = $sesssion";
 $busquedaU=mysqli_query($connection->getConnection(),$searchUser);
@@ -29,9 +29,9 @@ $busquedaDetP=mysqli_query($connection->getConnection(),$searchPubliResp);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/foro.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../../css/foro.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
   
 
 </head>
@@ -42,7 +42,7 @@ $busquedaDetP=mysqli_query($connection->getConnection(),$searchPubliResp);
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img class="logo-brand" src="assets/images/Screenshot_6.png"
+            <a class="navbar-brand" href="#"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
                     alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -54,7 +54,7 @@ $busquedaDetP=mysqli_query($connection->getConnection(),$searchPubliResp);
                    
                     <li class="nav-item"><a class="nav-link" href="#"><?php echo $user; ?></a></li>
                     <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
-                    <li class="nav-item"><a class="nav-link" href="sessionClose.php">Cerrar sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -65,24 +65,23 @@ $busquedaDetP=mysqli_query($connection->getConnection(),$searchPubliResp);
         <div class="row">
             <!--NavbarIzquierda-->
             <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 11%; background-color: #90B3EF;">
-                <h3 class="nav-foro fw-bold">PUBLICACION</h3>
+                <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
-                        <a class="nav-link" href="forum.php">Todas</a>
+                        <a class="nav-link" href="../../forum.php">Todas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mis Publicaciones</a>
+                        <a class="nav-link" href="misPublicaciones.php">Mis Publicaciones</a>
                     </li>
-
                     <h3 class="nav-foro fw-bold">CURSOS</h3>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inscritos</a>
+                        <a class="nav-link" href="../cursos/cursosInscritos.php">Inscritos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mis Cursos</a>
+                        <a class="nav-link" href="../cursos/misCursos.php">Mis Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="verCursos.php">Ver Cursos</a>
+                        <a class="nav-link" href="../cursos/verCursos.php">Ver Cursos</a>
                     </li>
                 </ul>
             </div>
@@ -131,7 +130,6 @@ $busquedaDetP=mysqli_query($connection->getConnection(),$searchPubliResp);
                 <input type="hidden" name="cedusupub" value="<?php echo $sesssion?>">
                 <input type="submit" class="send-reply" value="Enviar">
                 </form>                 
-                
                 </div>
                 <table class="table">
                     <thead class="table-dark">

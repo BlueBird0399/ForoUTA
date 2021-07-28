@@ -3,7 +3,7 @@ session_start();
 $sesssion=$_SESSION["user"];
 $user;
 $userAvatar;
-require_once("controllers/BDController/connectionController.php");
+require("../../controllers/BDController/connectionController.php");
 $connection = new connection('localhost','root','','bd_for_grup');
 $searchUser="SELECT NIC_USU,FOT_USU FROM usuario  WHERE CED_USU = $sesssion";
 $busquedaU=mysqli_query($connection->getConnection(),$searchUser);
@@ -12,11 +12,10 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $user=$row["NIC_USU"];
     $userAvatar=$row["FOT_USU"];
 }
-$searchPubli="SELECT p.ID_PUB,p.TIT_PUB,p.DES_PUB,u.NIC_USU,u.FOT_USU FROM publicacion p,usuario u WHERE p.CED_USU_PUB = u.CED_USU";
-$busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
+$search="SELECT c.ID_CUR,c.NOM_CUR,c.PRE_CUR,u.NIC_USU,u.FOT_USU FROM curso c,usuario u WHERE c.CED_USU_CREA = u.CED_USU and c.CED_USU_CREA=$sesssion";
+$busqueda=mysqli_query($connection->getConnection(),$search);
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,10 +23,11 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/foro.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <title>Document</title>
-    <link rel="stylesheet" href="css/foro.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+   
 
 </head>
 
@@ -37,7 +37,7 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="forum.php"><img class="logo-brand" src="assets/images/Screenshot_6.png"
+            <a class="navbar-brand" href="index.html"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
                     alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -46,9 +46,9 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link " href="#"><?php echo $user; ?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><?php echo $user; ?></a></li>
                     <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
-                    <li class="nav-item"><a class="nav-link" href="sessionClose.php">Cerrar sesión</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -60,63 +60,61 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
-                        <a class="nav-link" href="forum.php">Todas</a>
+                        <a class="nav-link" href="../../forum.php">Todas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/publicaciones/misPublicaciones.php">Mis Publicaciones</a>
+                        <a class="nav-link" href="../publicaciones/misPublicaciones.php">Mis Publicaciones</a>
                     </li>
                     <h3 class="nav-foro fw-bold">CURSOS</h3>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/cursos/cursosInscritos.php">Inscritos</a>
+                        <a class="nav-link" href="cursosInscritos.php">Inscritos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/cursos/misCursos.php">Mis Cursos</a>
+                        <a class="nav-link" href="misCursos.php">Mis Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/cursos/verCursos.php">Ver Cursos</a>
+                        <a class="nav-link" href="verCursos.php">Ver Cursos</a>
                     </li>
                 </ul>
             </div>
             <!--ForoPublicaciones-->
-            <div class="col-7">
-            <table class="table">
+            <div class="col-10">
+                <a class="nav-link" href="crearCurso.php">Crear Curso</a>               
+                <table id="table" class="table">
                     <thead class="table-dark">
-                        <th>Pubicaciones</th>
+                        <th>Curso</th>
+                        <th>Docente</th>
+                        <th>Costo</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </thead>
                     <tbody>
                         <?php
-                        while ($row = mysqli_fetch_assoc($busquedaP)) {?>
+                        while ($row = mysqli_fetch_assoc($busqueda)) {?>
                         <tr>
-                            <td>
-                                <?php
-                                echo '<a class="tit-pub" href="views/publicaciones/publicacion.php?publi='.$row["ID_PUB"].'">';
-                                    echo $row['TIT_PUB']; 
-                                    
-                                echo  '<br>';
-                                echo  '</a>';
-                                     echo $row['DES_PUB'];
+                            <td><?php echo '<a class="tit-pub" href="cursoInfo.php?curso='.$row['ID_CUR'].'">';
+                                    echo $row['NOM_CUR'];
+                                    echo "</a>";
                                 ?>
                             </td>
-                            <td>
-                            <a class="nic-usu" href="index.html">
-                                
+                            
+                                <td>
+                                <a class="tit-pub" href="">
                                     <?php echo $row['NIC_USU']; ?>
-                            </a>
+                                    </a>
+                                </td>
+                            <td>
+                                    <?php echo $row['PRE_CUR']; ?>
                             </td>
                             <td>
-                                  <img class="avatar" style="border-radius:50%;height:50px;" src="data:image;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">  
+                                <a class="edit-course"  href="">Editar</a>
+                                <a onClick="return confirm('Estas seguro de eliminar?');" class="delete-course" <?php echo 'href="crudCurso.php?action=d&curso='.$row['ID_CUR'].'"'?>>Eliminar</a> 
                             </td>
                         </tr>
                         <?php } ?>
                     </tbody>
                 </table>
-            </div>
-            <!--ChatIzquierda-->
-            <div class="col-3">
-
-            </div>
         </div>
 
     </div>
