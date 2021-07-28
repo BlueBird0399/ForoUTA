@@ -12,9 +12,6 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $user=$row["NIC_USU"];
     $userAvatar=$row["FOT_USU"];
 }
-$search="SELECT c.NOM_CUR,c.PRE_CUR,u.NIC_USU,u.FOT_USU FROM curso c,usuario u WHERE c.CED_USU_CREA = u.CED_USU and c.CED_USU_CREA=$sesssion";
-$busqueda=mysqli_query($connection->getConnection(),$search);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

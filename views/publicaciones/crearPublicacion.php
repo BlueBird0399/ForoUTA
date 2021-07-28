@@ -13,10 +13,6 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $user=$row["NIC_USU"];
     $userAvatar=$row["FOT_USU"];
 }
-//PUBLICACIONES HECHAS POR EL USUARIO
-$search="SELECT p.ID_PUB,p.TIT_PUB,p.DES_PUB,p.IMG_PUB,u.NIC_USU,u.FOT_USU FROM publicacion p ,usuario u WHERE p.CED_USU_PUB = u.CED_USU and p.CED_USU_PUB=$sesssion";
-$busqueda=mysqli_query($connection->getConnection(),$search);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +35,7 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
+            <a class="navbar-brand" href="../../forum.php"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
                     alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -80,31 +76,34 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                 </ul>
             </div>
             <!--ForoPublicaciones-->
-            <div class="col-10">
-                <a class="nav-link" href="crearPublicacion.php">Crear Publicación</a>               
-                <table id="table" class="table">
+            <div class="col-7">
+            <table class="table">
                     <thead class="table-dark">
-                        <th>Pubicaciones</th>
+                        <th>Crear Publicación</th>
+                        <th></th>
+                        <th></th>
                     </thead>
-                    <tbody>
-                        <?php while ($row = mysqli_fetch_assoc($busqueda)) {?>
-                        <tr>
-                            <td><?php echo '<a class="tit-pub" href="misPublicacionesInfo.php?publi='.$row['ID_PUB'].'">';
-                                     echo $row['TIT_PUB']; 
-                                    
-                                     echo  '<br>';
-                                     echo  '</a>';
-                                     echo $row['DES_PUB'];
-                                ?>
-                            </td>
-                            <td>
-                                <a class="edit-course"  href="">Editar</a>
-                                <a onClick="return confirm('Estas seguro de eliminar?');" class="delete-course" <?php echo 'href="crudPublicaiones.php?action=d&publi='.$row['ID_PUB'].'"'?>>Eliminar</a> 
-                            </td>
-                        </tr>
-                        <?php } ?>
-                    </tbody>
+                  
                 </table>
+                <div class="mb-4">
+                <form action="crudPublicaciones.php?action=c" method="POST" >
+                <div class="form-floating mb-3">
+                <input type="text" name="titpub" class="form-control" id="floatingInput" placeholder="Titulo Publicacion" required autofocus>
+                <label for="floatingInput">Titulo</label>
+                </div>
+                <div class="form-floating mb-3">
+                <textarea class="form-control" name="despub" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
+                <label for="floatingTextarea2">Descripcion de La Publicacion</label>
+                </div>
+                </div>
+                <div class="form-floating mb-3">
+                <h5>Publicar una Imagen (Opcional)</h5>
+               
+                <input type="submit" style="display: inline-block;" class="create-course" value="Crear">
+                </div>         
+                
+                </form>                 
+                </div>              
         </div>
 
     </div>

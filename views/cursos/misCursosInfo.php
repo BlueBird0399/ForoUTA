@@ -14,16 +14,16 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $user=$row["NIC_USU"];
     $userAvatar=$row["FOT_USU"];
 }
-//DATOS DEL CURSO
-$search="SELECT c.ID_CUR,c.DES_CUR,c.NOM_CUR,c.PRE_CUR,u.NIC_USU,u.FOT_USU FROM curso c,usuario u WHERE c.CED_USU_CREA = u.CED_USU and c.ID_CUR=$curso";
-$busqueda=mysqli_query($connection->getConnection(),$search);
-$row = mysqli_fetch_assoc($busqueda);
-//número de alumnos
+//DATOS DEL CURSO SELECCIONADO
+$searchC="SELECT c.ID_CUR,c.DES_CUR,c.NOM_CUR,c.PRE_CUR,u.NIC_USU,u.FOT_USU FROM curso c,usuario u WHERE c.CED_USU_CREA = u.CED_USU and c.ID_CUR=$curso";
+$busquedaC=mysqli_query($connection->getConnection(),$searchC);
+$row = mysqli_fetch_assoc($busquedaC);
+//NÚMERO DE ALUMNOS DEL CURSO
 $searchStudent="SELECT COUNT(ID_CUR_PER) as TOTAL FROM detalle_curso WHERE ID_CUR_PER=$curso";
 $busquedaS=mysqli_query($connection->getConnection(),$searchStudent);
-//COMPROBAR SI YA ESTA INSCRITO EN EL CURSO
-$searchInscrito="SELECT CED_USU_PER,ID_CUR_PER FROM detalle_curso WHERE ID_CUR_PER=$curso and CED_USU_PER=$sesssion";
-$busquedaI=mysqli_query($connection->getConnection(),$searchInscrito);
+//ALUMNOS INCRITOS EN EL CURSO
+$searchAlumnos="SELECT CED_USU,NIC_USU,CORR_USU FROM usuario WHERE CED_USU IN (SELECT CED_USU_PER FROM detalle_curso WHERE ID_CUR_PER=$curso)";
+$busquedaA=mysqli_query($connection->getConnection(),$searchAlumnos);
 
 ?>
 <!DOCTYPE html>
@@ -88,10 +88,7 @@ $busquedaI=mysqli_query($connection->getConnection(),$searchInscrito);
                 </ul>
             </div>
             <!--ForoPublicaciones-->
-            <div class="col-10">
-                    <?php if(mysqli_num_rows($busquedaI)>0) {?>
-                    <h3 style="text-align:center;">Ya está Inscrito en este Curso</h3>  
-                    <?php }?>
+            <div class="col-10"> 
                 <table id="table" class="table">
                     <thead class="table-dark">
                         <th>Curso</th>
@@ -144,12 +141,29 @@ $busquedaI=mysqli_query($connection->getConnection(),$searchInscrito);
                         </tr>
                     </tbody>
                 </table>
-                     <?php if(mysqli_num_rows($busquedaI)>0) {?>
-                      <a onClick="return confirm('¿Esta seguro que desea salir de este curso?');" class="exit-enter-course" style="margin-left:45%" <?php echo 'href="crudCurso.php?action=ddc&curso='.$row['ID_CUR'].'"'?>>Salir del Curso</a>           
-                    <?php } else {?>
-                        <?php echo  '<a class="exit-enter-course" style="margin-left:45%" href="crudCurso.php?action=ic&curso='.$row['ID_CUR'].'">Inscibirse</a>'  ?>                    
-                    <?php } ?> 
-
+                </table>
+                <table id="table" class="table">
+                    <thead class="table-dark">
+                        <th>Alumnos</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                    </thead>
+                    <tbody>
+                        <?php while($rowA = mysqli_fetch_assoc($busquedaA)) {  ?>
+                        <tr>
+                            <td>
+                            <?php echo $rowA['NIC_USU'];?>
+                            </td>
+                            <td>
+                            <?php echo $rowA['CED_USU'];?>
+                            </td>
+                            <td>
+                            <?php echo $rowA['CORR_USU'];?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
         </div>
 
     </div>

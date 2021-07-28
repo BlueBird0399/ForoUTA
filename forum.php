@@ -91,7 +91,7 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
                         <tr>
                             <td>
                                 <?php
-                                echo '<a class="tit-pub" href="views/publicaciones/publicacion.php?publi='.$row["ID_PUB"].'">';
+                                echo '<a class="tit-pub" href="views/publicaciones/publicacionInfo.php?publi='.$row["ID_PUB"].'">';
                                     echo $row['TIT_PUB']; 
                                     
                                 echo  '<br>';

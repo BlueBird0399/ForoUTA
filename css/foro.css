@@ -48,26 +48,18 @@ text-decoration: none;
   margin-right: 20px;
 }
 .create-course{
-  color: white;
-  font-size: 20px;
-  height: 40px;
-  width: 80px;
-  border-radius: 5px;
-  background-color: #0d6efd;
-  display: block;
-  text-align: center;
-  margin-left: 40%;
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  font-size: 14px;
+  padding: 15px 26px;
+  min-width: 160px;
+  border-radius: 2px;
+  display: inline-block;
 }
 .exit-enter-course{
-  color: white;
-  font-size: 15px;
-  height: 35px;
-  width: 80px;
-  border-radius: 5px;
-  background-color: rgb(7, 13, 50);
-  text-align: center;
-  margin-top: 5px;
+  text-decoration: none;
+  color: navy;
+  margin-right: 20px;
 }
-.form-curso{
-  display:inline-block;
-}
+

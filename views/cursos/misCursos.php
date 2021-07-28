@@ -93,7 +93,7 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                         <?php
                         while ($row = mysqli_fetch_assoc($busqueda)) {?>
                         <tr>
-                            <td><?php echo '<a class="tit-pub" href="cursoInfo.php?curso='.$row['ID_CUR'].'">';
+                            <td><?php echo '<a class="tit-pub" href="misCursosInfo.php?curso='.$row['ID_CUR'].'">';
                                     echo $row['NOM_CUR'];
                                     echo "</a>";
                                 ?>

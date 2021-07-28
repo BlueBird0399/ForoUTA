@@ -10,8 +10,8 @@ $execute=mysqli_query($connection->getConnection(),$insert);
 if($execute)
 {
     //$_SESSION["user"]=$CedUsuPub;
-    header("Location:publicacion.php?publi=$idPubPer");
+    header("Location:publicacionInfo.php?publi=$idPubPer");
 
 }
-echo '<script>alert("No se pudo enviar la respuesta");location.href="publicacion.php";</script>'; 
+echo '<script>alert("No se pudo enviar la respuesta");location.href="publicacionInfo.php";</script>'; 
 ?>

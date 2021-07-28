@@ -1,7 +1,8 @@
 <?php
 session_start();
-if($_GET['action']=="c")
+switch($_GET['action'])
 {
+case "c" :
     $nomCur=$_POST['nomcur'];
     $desCur=$_POST['descur'];
     $cedUsuCre=$_SESSION['user'];
@@ -14,10 +15,9 @@ if($_GET['action']=="c")
     {
     header("Location:misCursos.php");
     }
-    echo '<script>alert("No se pudo crear el curso");location.href="misCursos.php";</script>'; 
-}
-else if($_GET['action']=="d")
-{
+    echo '<script>alert("No se pudo crear el curso");location.href="misCursos.php";</script>';
+    break;
+case "d" :
     $idCur=$_GET['curso'];
     require("../../controllers/BDController/connectionController.php");
     $connection = new connection('localhost','root','','bd_for_grup');
@@ -27,10 +27,9 @@ else if($_GET['action']=="d")
     {
         header("Location:misCursos.php");
     }
-    echo '<script>alert("No se pudo eliminar curso");location.href="misCursos.php";</script>';    
-}
-else if($_GET['action']=="ddc")
-{
+    echo '<script>alert("No se pudo eliminar curso");location.href="misCursos.php";</script>';   
+    break;
+case "ddc":
     $idCur=$_GET['curso'];
     $cedUsuPer=$_SESSION['user'];
     require("../../controllers/BDController/connectionController.php");
@@ -39,8 +38,22 @@ else if($_GET['action']=="ddc")
     $execute=mysqli_query($connection->getConnection(),$sql);
     if($execute)
     {
-        header("Location:misCursos.php");
+        header("Location:cursosInscritos.php");
     }
-    echo '<script>alert("No se pudo eliminar curso");location.href="misCursos.php";</script>';    
+    echo '<script>alert("No se pudo eliminar curso");location.href="cursosInscritos.php";</script>'; 
+    break;
+case "ic":
+    $idCur=$_GET['curso'];
+    $cedUsuPer=$_SESSION['user'];
+    require("../../controllers/BDController/connectionController.php");
+    $connection = new connection('localhost','root','','bd_for_grup');
+    $sql="INSERT INTO detalle_curso (CED_USU_PER,ID_CUR_PER) VALUES('$cedUsuPer','$idCur')";
+    $execute=mysqli_query($connection->getConnection(),$sql);
+    if($execute)
+    {
+        header("Location:cursosInscritos.php");
+    }
+    echo '<script>alert("No se pudo Ingresar en el Curso");location.href="verCursos.php";</script>'; 
+    break;
 }
 ?>
