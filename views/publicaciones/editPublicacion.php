@@ -1,5 +1,6 @@
 <?php
 session_start();
+$publi=$_GET['publi'];
 $sesssion=$_SESSION["user"];
 $user;
 $userAvatar;
@@ -13,6 +14,10 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $user=$row["NIC_USU"];
     $userAvatar=$row["FOT_USU"];
 }
+//OBTENER DATOS DE LA PUBLICACION
+$sqlPubli="SELECT CED_USU_PUB,IMG_PUB,DES_PUB,TIT_PUB FROM publicacion WHERE ID_PUB=$publi";
+$executePubli=mysqli_query($connection->getConnection(),$sqlPubli);
+$row=mysqli_fetch_assoc($executePubli);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +30,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/style.css">
     <title>Document</title>
-   
+
 
 </head>
 
@@ -35,8 +40,8 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../../forum.php"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
-                    alt="logo"></a>
+            <a class="navbar-brand" href="../../forum.php"><img class="logo-brand"
+                    src="../../assets/images/Screenshot_6.png" alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -44,8 +49,11 @@ if ($row = mysqli_fetch_assoc($busquedaU))
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#"><?php echo $user; ?></a></li>
-                    <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
+                    <li class="nav-item"><a class="nav-link" href="#">
+                            <?php echo $user; ?>
+                        </a></li>
+                    <li class="nav-item">
+                        <img class="avatar-user" src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt=""> </li>
                     <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -54,7 +62,8 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     <div class="container-fluid" style="padding-top: 100px;">
         <div class="row">
             <!--NavbarIzquierda-->
-            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 15.3%; background-color:#6c757d;">
+            <div class="col-2  border border-3 border-dark text-center"
+            style="padding-bottom: 15.3%; background-color:#6c757d;">
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
@@ -77,35 +86,45 @@ if ($row = mysqli_fetch_assoc($busquedaU))
             </div>
             <!--ForoPublicaciones-->
             <div class="col-7">
-            <table class="table">
+                <table class="table">
                     <thead class="table-dark">
-                        <th>Crear Publicación</th>
+                        <th>Editar Publicación</th>
                         <th></th>
                         <th></th>
                     </thead>
-                  
-                </table>
-                <div class="mb-4">
-                <form action="crudPublicaciones.php?action=c" method="POST" enctype="multipart/form-data">
-                <div class="form-floating mb-3">
-                <input type="text" name="titpub" class="form-control" id="floatingInput" placeholder="Titulo Publicacion" required autofocus>
-                <label for="floatingInput">Titulo</label>
-                </div>
-                <div class="form-floating mb-3">
-                <textarea class="form-control" name="despub" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
-                <label for="floatingTextarea2">Descripcion de La Publicacion</label>
-                </div>
-                </div>
-                <div class="form-floating mb-3">
-                <h5>Publicar una Imagen (Opcional)</h5>
-                <input type="file" name="filepub" id="imgpub">
-                <input type="submit" style="display: inline-block;" class="create" value="Crear">
-                </div>         
-                
-                </form>                 
-                </div>              
-        </div>
 
+                </table>
+                <?php if($row) { ?>
+                <div class="mb-4">
+                    <form <?php echo 'action="crudPublicaciones.php?action=up&publi='.$publi.'"' ?>  method="POST" enctype="multipart/form-data">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="titpub" class="form-control" id="floatingInput"
+                                placeholder="Titulo Publicacion" <?php echo 'value="' .$row['TIT_PUB'].'"'?> required
+                            autofocus>
+                            <label for="floatingInput">Titulo</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" name="despub" placeholder="Leave a comment here"
+                                id="floatingTextarea2" style="height: 100px"
+                                required><?php echo $row['DES_PUB']?></textarea>
+                            <label for="floatingTextarea2">Descripción de La Publicacion</label>
+                        </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <h5>Cambiar ó Subir una nueva Imagen</h5>
+                    <input type="file" name="filepub" id="imgpub">
+                    <input type="submit" style="display: inline-block;" class="create" value="Editar">
+                </div>
+                </form>
+            </div>
+            <?php } ?>
+            <!--ChatIzquierda-->
+            <div class="col-3">
+            <?php if($row['IMG_PUB']!=NULL) {?>
+            <img class="img-publi" src="data:image/jpg;base64,<?php echo base64_encode($row['IMG_PUB']); ?>" alt=""> </li>
+            <?php } ?>
+            </div>
+        </div>
     </div>
     <script src="js/bootstrap.min.js"></script>
 </body>

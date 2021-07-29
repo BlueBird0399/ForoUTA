@@ -10,8 +10,8 @@
 }
 div .avatar {
     /* cambia estos dos valores para definir el tamaño de tu círculo */
-    height: 50px;
-    width: 50px;
+    height: 35px;
+    width: 35px;
     /* los siguientes valores son independientes del tamaño del círculo */
     background-repeat: no-repeat;
     background-position: 50%;
@@ -38,28 +38,35 @@ text-decoration: none;
   text-align: center;
   margin-top: 5px;
 }
-.delete-course{
+.delete{
   text-decoration: none;
   color: navy;
 }
-.edit-course{
+.edit{
   text-decoration: none;
   color: navy;
   margin-right: 20px;
 }
-.create-course{
+.create{
   color: #fff;
   background-color: #0b5ed7;
   border-color: #0a58ca;
   font-size: 14px;
-  padding: 15px 26px;
-  min-width: 160px;
+  height: 40px;
+  width: 80px;
   border-radius: 2px;
   display: inline-block;
+  margin-left: 40%;
 }
 .exit-enter-course{
   text-decoration: none;
   color: navy;
   margin-right: 20px;
+}
+.img-publi{
+   /* cambia estos dos valores para definir el tamaño de tu círculo */
+ height: 50%;
+ width: 100%;
+
 }
 

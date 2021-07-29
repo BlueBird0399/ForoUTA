@@ -12,7 +12,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $user=$row["NIC_USU"];
     $userAvatar=$row["FOT_USU"];
 }
-$search="SELECT c.ID_CUR,c.NOM_CUR,c.PRE_CUR,u.NIC_USU,u.FOT_USU FROM curso c,usuario u WHERE c.CED_USU_CREA = u.CED_USU";
+$search="SELECT c.ID_CUR,c.CED_USU_CREA,c.NOM_CUR,c.PRE_CUR,u.NIC_USU,u.FOT_USU FROM curso c,usuario u WHERE c.CED_USU_CREA = u.CED_USU";
 $busqueda=mysqli_query($connection->getConnection(),$search);
 
 ?>
@@ -56,7 +56,7 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
     <div class="container-fluid" style="padding-top: 100px;">
         <div class="row">
             <!--NavbarIzquierda-->
-            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 11%; background-color: #90B3EF;">
+            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 15.3%; background-color:#6c757d;">
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
@@ -86,9 +86,9 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                         <th>Costo</th>
                         <th></th>
                     </thead>
-                    <tbody>
-                        <?php
-                        while ($row = mysqli_fetch_assoc($busqueda)) {?>
+                    <tbody>        
+                    <?php while ($row = mysqli_fetch_assoc($busqueda)) {?>
+                        <?php  if($row['CED_USU_CREA']!=$sesssion) { ?>
                         <tr>
                             <td><?php echo '<a class="tit-pub" href="cursoInfo.php?curso='.$row['ID_CUR'].'">';
                                     echo $row['NOM_CUR'];
@@ -96,17 +96,19 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                                 ?>
                                 </td>
                                 <td>
-                                <a class="tit-pub" href="">
+                                <a class="tit-pub" href="../../perfilUsuario.php">
                                     <?php echo $row['NIC_USU']; ?>
                                     </a>
+                                    <img  class="avatar"  src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">
                                 </td>
                             <td>
-                                    <?php echo $row['PRE_CUR']; ?>
+                                    <?php echo $row['PRE_CUR'].'$'; ?>
                             </td>
                             <td>
-                                  <img class="avatar" style="border-radius:50%;height:50px;" src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">  
+                                    
                             </td>
                         </tr>
+                        <?php } ?>
                         <?php } ?>
                     </tbody>
                 </table>

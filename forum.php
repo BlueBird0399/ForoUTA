@@ -12,7 +12,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $user=$row["NIC_USU"];
     $userAvatar=$row["FOT_USU"];
 }
-$searchPubli="SELECT p.ID_PUB,p.TIT_PUB,p.DES_PUB,u.NIC_USU,u.FOT_USU FROM publicacion p,usuario u WHERE p.CED_USU_PUB = u.CED_USU";
+$searchPubli="SELECT p.ID_PUB,p.CED_USU_PUB,p.TIT_PUB,p.DES_PUB,u.NIC_USU,u.FOT_USU FROM publicacion p,usuario u WHERE p.CED_USU_PUB = u.CED_USU";
 $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
 
 ?>
@@ -28,7 +28,7 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
     <link rel="stylesheet" href="css/foro.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-
+    <script src="//code.tidio.co/utd8ih72uzatqlw38gabsrralqaijny0.js" async></script>
 </head>
 
 <body>
@@ -53,10 +53,10 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
             </div>
         </div>
     </nav>
-    <div class="container-fluid" style="padding-top: 100px;">
+    <div class="container-fluid" style="padding-top: 100px;heigh:100%;">
         <div class="row">
             <!--NavbarIzquierda-->
-            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 11%; background-color: #90B3EF;">
+            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 15.3%; background-color:#6c757d;">
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
@@ -84,11 +84,40 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
                         <th>Pubicaciones</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </thead>
                     <tbody>
-                        <?php
-                        while ($row = mysqli_fetch_assoc($busquedaP)) {?>
+                    <?php  while ($row = mysqli_fetch_assoc($busquedaP)) {?>
+                        <?php  if($row['CED_USU_PUB']==$sesssion) { ?>
                         <tr>
+                            <td>
+                                <?php
+                                echo '<a class="tit-pub" href="views/publicaciones/misPublicacionesInfo.php?publi='.$row["ID_PUB"].'">';
+                                    echo $row['TIT_PUB']; 
+                                    
+                                echo  '<br>';
+                                echo  '</a>';
+                                     echo $row['DES_PUB'];
+                                ?>
+                            </td>
+                            <td>
+                            <a class="nic-usu" href="perfilUsuario.php">
+                                
+                                    <?php echo $row['NIC_USU']; ?>
+                            </a>
+                            </td>
+                            <td>
+                                  <img class="avatar" src="data:image;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">  
+                            </td>
+                            <td>
+                            <div class="mb-4">
+                            <a class="edit" style="text-align:center"  <?php echo 'href="views/publicaciones/editPublicacion.php?publi='.$row['ID_PUB'].'"'?>>Editar</a>
+                            <a onClick="return confirm('Estas seguro de eliminar?');" class="delete" <?php echo 'href="views/publicaciones/crudPublicaciones.php?action=d&forum=s&publi='.$row['ID_PUB'].'"'?>>Eliminar</a>                 
+                            </div>
+                            </td>
+                        </tr>
+                        <?php } else { ?>
+                            <tr>
                             <td>
                                 <?php
                                 echo '<a class="tit-pub" href="views/publicaciones/publicacionInfo.php?publi='.$row["ID_PUB"].'">';
@@ -100,15 +129,16 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
                                 ?>
                             </td>
                             <td>
-                            <a class="nic-usu" href="index.html">
+                            <a class="nic-usu" href="perfilUsuario.php">
                                 
                                     <?php echo $row['NIC_USU']; ?>
                             </a>
                             </td>
                             <td>
-                                  <img class="avatar" style="border-radius:50%;height:50px;" src="data:image;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">  
+                                  <img class="avatar" src="data:image;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">  
                             </td>
                         </tr>
+                        <?php } ?> 
                         <?php } ?>
                     </tbody>
                 </table>

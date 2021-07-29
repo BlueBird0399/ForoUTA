@@ -56,7 +56,7 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
     <div class="container-fluid" style="padding-top: 100px;">
         <div class="row">
             <!--NavbarIzquierda-->
-            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 11%; background-color: #90B3EF;">
+            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 15.3%; background-color:#6c757d;">
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
@@ -105,11 +105,11 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                                     </a>
                                 </td>
                             <td>
-                                    <?php echo $row['PRE_CUR']; ?>
+                                    <?php echo $row['PRE_CUR'].'$'; ?>
                             </td>
                             <td>
-                                <a class="edit-course"  href="">Editar</a>
-                                <a onClick="return confirm('Estas seguro de eliminar?');" class="delete-course" <?php echo 'href="crudCurso.php?action=d&curso='.$row['ID_CUR'].'"'?>>Eliminar</a> 
+                            <a class="edit" style="text-align:center"  <?php echo 'href="editCurso.php?curso='.$row['ID_CUR'].'"'?>>Editar Curso</a>
+                                <a onClick="return confirm('Estas seguro de eliminar?');" class="delete" <?php echo 'href="crudCurso.php?action=d&curso='.$row['ID_CUR'].'"'?>>Eliminar</a> 
                             </td>
                         </tr>
                         <?php } ?>

@@ -5,6 +5,7 @@ $user;
 $userAvatar;
 require("../../controllers/BDController/connectionController.php");
 $connection = new connection('localhost','root','','bd_for_grup');
+//DATOS DEL USUARIO CONECTADO
 $searchUser="SELECT NIC_USU,FOT_USU FROM usuario  WHERE CED_USU = $sesssion";
 $busquedaU=mysqli_query($connection->getConnection(),$searchUser);
 if ($row = mysqli_fetch_assoc($busquedaU))
@@ -53,7 +54,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     <div class="container-fluid" style="padding-top: 100px;">
         <div class="row">
             <!--NavbarIzquierda-->
-            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 11%; background-color: #90B3EF;">
+            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 15.3%; background-color:#6c757d;">
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
@@ -98,7 +99,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
                 <div class="form-floating mb-3">
                 <input type="Number" name="precur" class="form-control" id="floatingInput" style="width: 170px; display: inline-block;" min="0" value="0" placeholder="Nombre del Curso">
                 <label for="floatingInput">Precio (Opcional)</label>
-                <input type="submit" style="display: inline-block;" class="create-course" value="Crear">
+                <input type="submit" style="display: inline-block;" class="create" value="Crear">
                 </div>         
                 
                 </form>                 

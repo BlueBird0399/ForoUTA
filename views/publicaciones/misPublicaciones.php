@@ -58,7 +58,7 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
     <div class="container-fluid" style="padding-top: 100px;">
         <div class="row">
             <!--NavbarIzquierda-->
-            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 11%; background-color: #90B3EF;">
+            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 15.3%; background-color:#6c757d;">
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
@@ -85,6 +85,7 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                 <table id="table" class="table">
                     <thead class="table-dark">
                         <th>Pubicaciones</th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <?php while ($row = mysqli_fetch_assoc($busqueda)) {?>
@@ -98,8 +99,8 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                                 ?>
                             </td>
                             <td>
-                                <a class="edit-course"  href="">Editar</a>
-                                <a onClick="return confirm('Estas seguro de eliminar?');" class="delete-course" <?php echo 'href="crudPublicaiones.php?action=d&publi='.$row['ID_PUB'].'"'?>>Eliminar</a> 
+                                <a class="edit"  <?php echo 'href="editPublicacion.php?publi='.$row['ID_PUB'].'"'?>>Editar</a>
+                                <a onClick="return confirm('Estas seguro de eliminar?');" class="delete" <?php echo 'href="crudPublicaciones.php?action=d&publi='.$row['ID_PUB'].'"'?>>Eliminar</a> 
                             </td>
                         </tr>
                         <?php } ?>

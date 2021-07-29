@@ -14,6 +14,7 @@ case "c" :
     if($execute)
     {
     header("Location:misCursos.php");
+    break;
     }
     echo '<script>alert("No se pudo crear el curso");location.href="misCursos.php";</script>';
     break;
@@ -21,11 +22,14 @@ case "d" :
     $idCur=$_GET['curso'];
     require("../../controllers/BDController/connectionController.php");
     $connection = new connection('localhost','root','','bd_for_grup');
+    $sql="DELETE FROM detalle_curso WHERE ID_CUR_PER=$idCur";
+    $execute=mysqli_query($connection->getConnection(),$sql);
     $sql="DELETE FROM curso WHERE ID_CUR=$idCur";
     $execute=mysqli_query($connection->getConnection(),$sql);
     if($execute)
     {
         header("Location:misCursos.php");
+        break;
     }
     echo '<script>alert("No se pudo eliminar curso");location.href="misCursos.php";</script>';   
     break;
@@ -39,8 +43,9 @@ case "ddc":
     if($execute)
     {
         header("Location:cursosInscritos.php");
+        break;
     }
-    echo '<script>alert("No se pudo eliminar curso");location.href="cursosInscritos.php";</script>'; 
+    echo '<script>alert("No se pudo salir del Curso");location.href="cursosInscritos.php";</script>'; 
     break;
 case "ic":
     $idCur=$_GET['curso'];
@@ -52,8 +57,25 @@ case "ic":
     if($execute)
     {
         header("Location:cursosInscritos.php");
+        break;
     }
-    echo '<script>alert("No se pudo Ingresar en el Curso");location.href="verCursos.php";</script>'; 
+    echo '<script>alert("No se pudo Inscribir en el Curso");location.href="verCursos.php";</script>'; 
+    break;
+case "uc":
+    $idCur=$_GET['curso'];
+    $nomCur=$_POST['nomcur'];
+    $desCur=$_POST['descur'];
+    $preCur=$_POST['precur'];
+    require("../../controllers/BDController/connectionController.php");
+    $connection = new connection('localhost','root','','bd_for_grup');
+    $sql="UPDATE curso SET NOM_CUR='$nomCur',DES_CUR='$desCur',PRE_CUR=$preCur WHERE ID_CUR=$idCur";
+    $execute=mysqli_query($connection->getConnection(),$sql);
+    if($execute)
+    {
+        header("Location:misCursos.php");
+        break;
+    }
+    echo '<script>alert("No se pudo editar el Curso");location.href="misCursos.php";</script>'; 
     break;
 }
 ?>
