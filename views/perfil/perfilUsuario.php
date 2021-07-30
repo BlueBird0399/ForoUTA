@@ -2,21 +2,11 @@
 session_start();
 $sesssion=$_SESSION["user"];
 $user;
-$link= mysqli_connect('localhost','root','');
-if(!$link)
-{
-echo "No se pudo conectar con el servidor";
-}
-else
-{
-$db="bd_for_grup";
-$sdb=mysqli_select_db($link,$db);
-if(!$sdb)
-{
-echo "No se pudo encotrar la base de datos";
-}
+require("../../controllers/BDController/connectionController.php");
+$connection = new connection('localhost','root','','bd_for_grup');
+//DATOS DEL USUARIO CONECTADO
 $searchUser="SELECT * FROM usuario  WHERE CED_USU = $sesssion";
-$busquedaU=mysqli_query($link,$searchUser);
+$busquedaU=mysqli_query($connection->getConnection(),$searchUser);
 if ($row = mysqli_fetch_assoc($busquedaU))
 {
     $nomU=$row["NOM_USU"];
@@ -28,9 +18,6 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     $contU=$row["CONT_USU"];
     $corrU=$row["CORR_USU"];
 }
-$searchPubli="SELECT c.NOM_CUR,u.NOM_USU FROM publicacion p c,usuario u WHERE c.COD_USU_CRE = u.COD_USU";
-$busquedaP=mysqli_query($link,$searchPubli);
-}
 ?>
 
 <!DOCTYPE html>
@@ -41,9 +28,10 @@ $busquedaP=mysqli_query($link,$searchPubli);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/foro.css">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../css/foro.css?v=<?php echo time(); ?>">
+    
 
 </head>
 
@@ -53,7 +41,7 @@ $busquedaP=mysqli_query($link,$searchPubli);
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#"><img class="logo-brand" src="assets/images/Screenshot_6.png"
+            <a class="navbar-brand" href="#"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
                     alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -62,9 +50,10 @@ $busquedaP=mysqli_query($link,$searchPubli);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li class="nav-item"><a class="nav-link" href="forum.php">Pagina Principal</a></li>
+                  <li class="nav-item"><a class="nav-link" href="../../forum.php">Pagina Principal</a></li>
                     <li class="nav-item"><a class="nav-link" href="perfilUsuario.php"><?php echo $nicU; ?></a></li>
-                    <li class="nav-item"><a class="nav-link" href="index.html">Cerrar sesión</a></li>
+                    <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($fotU); ?>" alt="">  </li>
+                    <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -74,50 +63,47 @@ $busquedaP=mysqli_query($link,$searchPubli);
     <div class="container-fluid" style="padding-top: 100px;">
         <div class="row">
             <!--NavbarIzquierda-->
-            <div class="col-3  border border-3 border-dark text-center" style="padding-bottom: 11%; background-color: #90B3EF;">
+            <div class="col-2  border border-3 border-dark text-center" style="padding-bottom: 15.3%; background-color:#6c757d;">
                 <h3 class="nav-foro fw-bold">PUBLICACIONES</h3>
                 <ul class="nav flex-column ">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Importantes</a>
+                        <a class="nav-link" href="../../forum.php">Todas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Académicas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Otros</a>
+                        <a class="nav-link" href="../publicaciones/misPublicaciones.php">Mis Publicaciones</a>
                     </li>
                     <h3 class="nav-foro fw-bold">CURSOS</h3>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Inscritos</a>
+                        <a class="nav-link" href="../cursos/cursosInscritos.php">Inscritos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mis Cursos</a>
+                        <a class="nav-link" href="../cursos/misCursos.php">Mis Cursos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Ver Cursos</a>
+                        <a class="nav-link" href="../cursos/verCursos.php">Ver Cursos</a>
                     </li>
                 </ul>
             </div>
             <!--ForoPublicaciones-->  
-            <div class="col-6">
+            <div class="col-10">
+                <h3 class="perfil-text"><?php echo $nicU; ?></h3>
+              <img class="ava_img"src="data:image/jpg;base64,<?php echo base64_encode($fotU); ?>" alt="SIN IMAGEN">
+              <a class="edit-perfil" style="text-align:center" href="editPerfil.php" >Editar Perfil</a>
               <ul class="datos">
-                <li>NOMBRE:</li>
-                <p><?php echo $nomU ?></p>
-                <li>APELLIDO: </li>
-                <p><?php echo $apeU ?></p>
-                <li>CEDULA: </li>
-                <p><?php echo $cedU ?></p>
-                <li>FECHA DE NACIMIENTO: </li>
-                <p><?php echo $fecNacU ?></p>
-                <li>USUARIO: </li>
-                <p><?php echo $nicU ?></p>
+                <li><b>NOMBRE: </b><?php echo $nomU ?></li>
+                
+                <li><b>APELLIDO: </b><?php echo $apeU ?></li>
+                
+                <li><b>CEDULA: </b><?php echo $cedU ?></li>
+                
+                <li><b>FECHA DE NACIMIENTO: </b><?php echo $fecNacU ?></li>
+                
+                <li><b>USUARIO: </b><?php echo $nicU ?></li>
+                
                 <!--<li>CONTRASEÑA: <?php echo "***"; ?></li>-->
-                <li>CORREO:</li>
-                <p><?php echo $corrU ?></p>
+                <li><b>CORREO: </b><?php echo $corrU ?></li>
+                
               </ul>
-            </div>
-            <div class="col-1">
-                <img class="avatar"src="data:image/jpg;base64,<?php echo base64_encode($fotU); ?>" alt="SIN IMAGEN">
             </div>
         </div>
 

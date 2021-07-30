@@ -25,9 +25,9 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/foro.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/foro.css?v=<?php echo time(); ?>">
     <script src="//code.tidio.co/utd8ih72uzatqlw38gabsrralqaijny0.js" async></script>
 </head>
 
@@ -46,7 +46,7 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link " href="#"><?php echo $user; ?></a></li>
+                    <li class="nav-item"><a class="nav-link " href="views/perfil/perfilUsuario.php"><?php echo $user; ?></a></li>
                     <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
                     <li class="nav-item"><a class="nav-link" href="sessionClose.php">Cerrar sesión</a></li>
                 </ul>
@@ -78,7 +78,7 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
                 </ul>
             </div>
             <!--ForoPublicaciones-->
-            <div class="col-7">
+            <div class="col-10">
             <table class="table">
                     <thead class="table-dark">
                         <th>Pubicaciones</th>
@@ -142,10 +142,6 @@ $busquedaP=mysqli_query($connection->getConnection(),$searchPubli);
                         <?php } ?>
                     </tbody>
                 </table>
-            </div>
-            <!--ChatIzquierda-->
-            <div class="col-3">
-
             </div>
         </div>
 

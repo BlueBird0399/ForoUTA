@@ -21,7 +21,7 @@ $sqlPubli="SELECT p.ID_PUB,p.TIT_PUB,p.IMG_PUB,p.DES_PUB,u.NIC_USU,u.FOT_USU FRO
 $exexuteP=mysqli_query($connection->getConnection(),$sqlPubli);
 $row = mysqli_fetch_assoc($exexuteP);
 //RESPUESTAS DE LA PUBLICACION SELECCIONADA
-$sqlPubliResp="SELECT d.DET_PUB,u.NIC_USU,u.FOT_USU FROM detalle_publicacion d,usuario u WHERE d.ID_PUB_PER = $publi AND d.CED_USU_PUB=u.CED_USU";
+$sqlPubliResp="SELECT d.ID_DET_PUB,d.DET_PUB,d.CED_USU_PUB,u.NIC_USU,u.FOT_USU FROM detalle_publicacion d,usuario u WHERE d.ID_PUB_PER = $publi AND d.CED_USU_PUB=u.CED_USU";
 $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
 }
 ?>
@@ -33,9 +33,9 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../css/foro.css">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../css/foro.css?v=<?php echo time(); ?>">
 
 </head>
 
@@ -54,7 +54,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link " href="#"><?php echo $user; ?></a></li>
+                    <li class="nav-item"><a class="nav-link " href="../perfil/perfilUsuario.php"><?php echo $user; ?></a></li>
                     <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
                     <li class="nav-item"><a class="nav-link" href="sessionClose.php">Cerrar sesión</a></li>
                 </ul>
@@ -136,6 +136,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                         <th>Respuestas</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                     </thead>
                     <tbody>
                         <?php
@@ -153,6 +154,14 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                             <td>
                                   <img class="avatar"src="data:image/jpg;base64,<?php echo base64_encode($rowr['FOT_USU']); ?>" alt="">  
                             </td>
+                            <?php  if($rowr['CED_USU_PUB']==$sesssion) { ?>
+                            <td>
+                            <div class="mb-4">
+                            <a class="edit" style="text-align:center"  <?php echo 'href="editRespuesta.php?publi='.$rowr['ID_DET_PUB'].'"'?>>Editar</a>
+                            <a onClick="return confirm('Estas seguro de eliminar?');" class="delete" <?php echo 'href="crudPublicaciones.php?action=ddp&forum=s&publi='.$rowr['ID_DET_PUB'].'"'?>>Eliminar</a>                 
+                            </div>
+                            </td>
+                            <?php } ?>
                         </tr>
                         <?php } ?>
                     </tbody>

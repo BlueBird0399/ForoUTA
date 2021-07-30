@@ -21,9 +21,9 @@ if ($row = mysqli_fetch_assoc($busquedaU))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/foro.css">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../css/foro.css?v=<?php echo time(); ?>">
     <title>Document</title>
    
 
@@ -44,7 +44,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#"><?php echo $user; ?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../perfil/perfilUsuario.php"><?php echo $user; ?></a></li>
                     <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
                     <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
                 </ul>
@@ -76,7 +76,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
                 </ul>
             </div>
             <!--ForoPublicaciones-->
-            <div class="col-7">
+            <div class="col-10">
             <table class="table">
                     <thead class="table-dark">
                         <th>Crear Cursos</th>

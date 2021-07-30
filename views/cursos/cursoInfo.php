@@ -33,9 +33,9 @@ $busquedaI=mysqli_query($connection->getConnection(),$searchInscrito);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/foro.css">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../css/foro.css?v=<?php echo time(); ?>">
     <title>Document</title>
    
 
@@ -56,7 +56,7 @@ $busquedaI=mysqli_query($connection->getConnection(),$searchInscrito);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#"><?php echo $user; ?></a></li>
+                    <li class="nav-item"><a class="nav-link" href="../perfil/perfilUsuario.php"><?php echo $user; ?></a></li>
                     <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
                     <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
                 </ul>
@@ -97,7 +97,6 @@ $busquedaI=mysqli_query($connection->getConnection(),$searchInscrito);
                         <th>Curso</th>
                         <th>Docente</th>
                         <th>Costo</th>
-                        <th></th>
                         <th>Estudiantes Inscitos</th>
                     </thead>
                     <tbody>
@@ -105,21 +104,19 @@ $busquedaI=mysqli_query($connection->getConnection(),$searchInscrito);
                         <tr>
                             <td><?php echo '<a class="tit-pub" href="cursoInfo.php?curso='.$row['ID_CUR'].'">';
                                     echo $row['NOM_CUR'];
-                                    echo "</a>";
-                                ?>
+                                    echo "</a>";   
+                                ?>     
                             </td>
                                 <td>
                                 <a class="tit-pub" href="">
                                     <?php echo $row['NIC_USU']; ?>
-                                    
+                                    <img class="avatar"  src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt=""> 
                                     </a>
                                 </td>
                             <td>
                                     <?php echo $row['PRE_CUR']; ?>
                             </td>
-                            <td>
-                                  <img class="avatar" style="border-radius:50%;height:50px;" src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">  
-                            </td>
+                          
                             <td>
                                     <?php 
                                     if($rowt = mysqli_fetch_assoc($busquedaS)) 

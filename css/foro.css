@@ -18,6 +18,76 @@ div .avatar {
     border-radius: 50%;
     background-size: 100% auto;
   }
+  /*******************************PERFIL USUARIO                                  */
+  div .ava_img {
+    /* cambia estos dos valores para definir el tamaño de tu círculo */
+    height: 200px;
+    width: 200px;
+    /* los siguientes valores son independientes del tamaño del círculo */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+  }
+  .col-10{
+
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px; 
+    border-style: solid;
+ 
+  }
+  .col-10 ul li {
+    list-style: none;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border-bottom: solid;
+    text-decoration-color: white;
+  }
+  .col-10 ul 
+  {
+    padding: auto;
+  }
+  .sobreMi {
+    margin-top: 220px;
+  
+  }
+  
+  .fondo_img {
+    position: absolute;
+    height:180px;
+    width: 100%;
+    top: 100px;
+    left: 257px;
+    z-index: 1;
+  }
+  .ava_img{
+    position:relative;
+    border: solid;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .datos{
+    color: #4C4C4E;
+    height: 20%;
+    width: 40%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto; 
+    border-radius: 1%;
+  }
+.navbar, .navbar-expand-lg, .fixed-top{
+    background-color: #ad272e;
+  }
+  .perfil-text{
+    
+    text-align: center;
+    color: #4C4C4E;
+  }
+  /***********************PERFIL USUARIO***************************/
 .tit-pub{
 text-decoration: none;
  color: navy;
@@ -67,6 +137,29 @@ text-decoration: none;
    /* cambia estos dos valores para definir el tamaño de tu círculo */
  height: 50%;
  width: 100%;
-
+}
+table td{
+  color: #4C4C4E;
+}
+.col-2{
+  background-color: #4C4C4E;
+}
+.col-7{
+ background-color: var(--highlight-bg);
+}
+.col-3{
+  background-color: var(--highlight-bg);
+}
+.edit-perfil{
+  position: relative;
+  text-decoration: none;
+  color: #0a58ca;
+  left: 45%;
+  font-size: 20px;
+  border: solid;
+  border-radius: 5px;
+}
+.edit-perfil:hover{
+  color: #ad272e;
 }
 

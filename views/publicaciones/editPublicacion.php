@@ -26,9 +26,9 @@ $row=mysqli_fetch_assoc($executePubli);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/foro.css">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../css/foro.css?v=<?php echo time(); ?>">
     <title>Document</title>
 
 
@@ -49,7 +49,7 @@ $row=mysqli_fetch_assoc($executePubli);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#">
+                    <li class="nav-item"><a class="nav-link" href="../perfil/perfilUsuario.php">
                             <?php echo $user; ?>
                         </a></li>
                     <li class="nav-item">
@@ -112,7 +112,7 @@ $row=mysqli_fetch_assoc($executePubli);
                 </div>
                 <div class="form-floating mb-3">
                     <h5>Cambiar ó Subir una nueva Imagen</h5>
-                    <input type="file" name="filepub" id="imgpub">
+                    <input type="file" name="filepub"  accept=".jpg,.png" id="imgpub">
                     <input type="submit" style="display: inline-block;" class="create" value="Editar">
                 </div>
                 </form>

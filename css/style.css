@@ -33,14 +33,20 @@ section{
   color: white;
 }
 .nav-link{
-  color: black;
+  color: var(--bs-table-bg);
 }
 .nav-link:hover{
-  color: #265ABC;
+  color: #D51D29;
 }
 .logo-brand{
-  min-width: 80px;
-  max-width: 80px;
+   /* cambia estos dos valores para definir el tamaño de tu círculo */
+   height: 70px;
+   width: 70px;
+   /* los siguientes valores son independientes del tamaño del círculo */
+   background-repeat: no-repeat;
+   background-position: 50%;
+   border-radius: 50%;
+   background-size: 100% auto;
 }
 #hero{
   background: url('../assets/images/hero.jpg') no-repeat;
@@ -173,7 +179,7 @@ form label{
 /* -------------------------------FORO--------------------------------------- */
 
 .nav-foro{
-  color: rgb(107, 10, 10);
+  color: white;
   font-size: 23px;
   line-height: 3;
 }
