@@ -2,6 +2,7 @@
 //conexion con la base de datos y el servidor
 session_start();
 require_once("controllers/BDController/connectionController.php");
+require_once("controllers/validador/ValidarIdentificacion.php");
 $connection = new connection('localhost','root','','bd_for_grup');
 //obtenemos los valores del formulario
 $ced = $_POST['userCed'];
@@ -11,6 +12,14 @@ $user= $_POST['user'];
 $date= $_POST['userBdate'];
 $email = $_POST['useremail'];
 $pass = $_POST['userpassword'];
+$valCed=new ValidarIdentificacion;
+if(!$valCed->validarCedula($ced)){
+    session_destroy(); 
+    echo '<script>alert("Ingrese una cédula verdadera");location.href="formulario.html";</script>';
+    
+}
+else
+{
 $avatar=fopen("assets/images/default.png","r");
 echo filesize("assets/images/default.png");
 $avatarBLOB = fread($avatar,filesize("assets/images/default.png"));
@@ -46,7 +55,7 @@ header("Location:forum.php");
 }
 echo '<script>alert("No se pudo realizar el registro, contactese con los responsables del servicio");location.href="formulario.html#contactos";</script>'; 
 }
-
+}
 
 
 ?>
