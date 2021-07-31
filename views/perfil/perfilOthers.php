@@ -1,22 +1,26 @@
 <?php
 session_start();
 $sesssion=$_SESSION["user"];
-$user;
+$user=$_GET['usced'];
 require("../../controllers/BDController/connectionController.php");
 $connection = new connection('localhost','root','','bd_for_grup');
 //DATOS DEL USUARIO CONECTADO
-$searchUser="SELECT * FROM usuario  WHERE CED_USU = $sesssion";
-$busquedaU=mysqli_query($connection->getConnection(),$searchUser);
-if ($row = mysqli_fetch_assoc($busquedaU))
+$sqlUser="SELECT NIC_USU,FOT_USU FROM usuario  WHERE CED_USU = $sesssion";
+$executeU=mysqli_query($connection->getConnection(),$sqlUser);
+$row = mysqli_fetch_assoc($executeU);
+//DATOS DEL OTRO USUARIO DUEÑO DEL PERFIL
+$sql="SELECT * FROM usuario  WHERE CED_USU = $user";
+$execute=mysqli_query($connection->getConnection(),$sql);
+if ($rowo = mysqli_fetch_assoc($execute))
 {
-    $nomU=$row["NOM_USU"];
-    $apeU=$row["APE_USU"];
-    $cedU=$row["CED_USU"];
-    $fecNacU=$row["FEC_NAC"];
-    $fotU=$row["FOT_USU"];
-    $nicU=$row["NIC_USU"];
-    $contU=$row["CONT_USU"];
-    $corrU=$row["CORR_USU"];
+    $nomU=$rowo["NOM_USU"];
+    $apeU=$rowo["APE_USU"];
+    $cedU=$rowo["CED_USU"];
+    $fecNacU=$rowo["FEC_NAC"];
+    $fotU=$rowo["FOT_USU"];
+    $nicU=$rowo["NIC_USU"];
+    $contU=$rowo["CONT_USU"];
+    $corrU=$rowo["CORR_USU"];
 }
 ?>
 
@@ -51,7 +55,7 @@ if ($row = mysqli_fetch_assoc($busquedaU))
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li class="nav-item"><a style="padding-top: 15px;" class="nav-link" href="../../forum.php">Pagina Principal</a></li>
-                  <li class="nav-item"><a class="nav-link " href="perfilUsuario.php#"><?php echo $nicU; ?> <img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($fotU); ?>" alt=""></a></li>
+                  <li class="nav-item"><a class="nav-link " href="perfilUsuario.php#"><?php echo $row['NIC_USU']; ?> <img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt=""></a></li>
                   <li class="nav-item"><a style="padding-top: 15px;" class="nav-link" href="../../controllers/session/sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
@@ -87,59 +91,21 @@ if ($row = mysqli_fetch_assoc($busquedaU))
             <div class="col-10">
                 <h3 class="perfil-text"><?php echo $nicU; ?></h3>
               <img class="ava_img"src="data:image/jpg;base64,<?php echo base64_encode($fotU); ?>" alt="SIN IMAGEN">
-                <form action="crudPerfil.php?action=up"method="POST" enctype="multipart/form-data">
               <ul class="datos">
-                <li>
-                <div class="form-floating mb-3">
-                <p>Cambiar foto de Perfil</p>
-                <input type="file" name="imgusu"  accept=".jpg,.png" id="imgusu">
-                </div> 
-                </li>
-                <li>
-                <div class="form-floating mb-3">
-                <input type="text" name="nomusu" class="form-control" id="floatingInput" placeholder="Nombre del Curso" <?php echo 'value="'.$nomU.'"'?> required autofocus>
-                <label for="floatingInput">NOMBRE:</label>
-                </div> 
-                </li>
-                <li>
-                <div class="form-floating mb-3">
-                <input type="text" name="apeusu" class="form-control" id="floatingInput" placeholder="Nombre del Curso" <?php echo 'value="'.$apeU.'"'?> required >
-                <label for="floatingInput">APELLIDO:</label>
-                </div> 
-                </li>
+                <li><b>NOMBRE: </b><?php echo $nomU ?></li>
                 
-                <li>
-                <div class="form-floating mb-3">
-                <input type="date" name="fecusu" class="form-control" id="floatingInput" placeholder="Nombre del Curso" <?php echo 'value="'.$fecNacU.'"'?> required >
-                <label for="floatingInput">FECHA DE NACIMIENTO:</label>
-                </div> 
-                </li>
+                <li><b>APELLIDO: </b><?php echo $apeU ?></li>
                 
-                <li>
-                <div class="form-floating mb-3">
-                <input type="text" name="nicusu" class="form-control" id="floatingInput" placeholder="Nombre del Curso" <?php echo 'value="'.$nicU.'"'?> required >
-                <label for="floatingInput">USUARIO:</label>
-                </div> 
-                </li>
-                <li>
-                <div class="form-floating mb-3">
-                <input type="email" name="corrusu" class="form-control" id="floatingInput" placeholder="Nombre del Curso" <?php echo 'value="'.$corrU.'"'?> required >
-                <label for="floatingInput">CORREO:</label>
-                </div> 
-                </li>
-                <li>
-                <div class="form-floating mb-3">
-                <input type="password" name="actpassusu" class="form-control" id="floatingInput" placeholder="Nombre del Curso" >
-                <label for="floatingInput">Contraseña Actual:</label>
-                </div> 
-                <div class="form-floating mb-3">
-                <input type="password" name="newpassusu" class="form-control" id="floatingInput" placeholder="Nombre del Curso" >
-                <label for="floatingInput">Nueva Contreseña:</label>
-                </div> 
-                </li>
-                <input type="submit" style="margin-left: auto;" class="create" value="Guardar">
+                <li><b>CEDULA: </b><?php echo $cedU ?></li>
+                
+                <li><b>FECHA DE NACIMIENTO: </b><?php echo $fecNacU ?></li>
+                
+                <li><b>USUARIO: </b><?php echo $nicU ?></li>
+                
+                <!--<li>CONTRASEÑA: <?php echo "***"; ?></li>-->
+                <li><b>CORREO: </b><?php echo $corrU ?></li>
+                
               </ul>
-              </form>
             </div>
         </div>
 

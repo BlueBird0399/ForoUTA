@@ -89,8 +89,30 @@ case "up":
     } 
     break;
 case "ddp":
-    
-    
+    $idPub=$_GET['publi'];
+    $idPubRes=$_GET['publiresp'];
+    $sql="DELETE FROM detalle_publicacion WHERE ID_DET_PUB=$idPubRes";
+    $execute=mysqli_query($connection->getConnection(),$sql);
+    if($execute)
+        {
+            header("Location:publicacionInfo.php?publi=$idPub");
+            break;
+        }
+        echo '<script>alert("No se pudo eliminar la Respuesta");location.href="publicacionInfo.php?publi='.$idPub.'";</script>'; 
+        break;
+case "ur":
+    $idPub=$_GET['publi'];
+    $idPubRes=$_GET['publiresp'];
+    $detPub=$_POST['detpub'];
+    $sql="UPDATE detalle_publicacion SET DET_PUB='$detPub' WHERE ID_DET_PUB=$idPubRes";
+    $execute=mysqli_query($connection->getConnection(),$sql);
+    if($execute)
+        {
+            header("Location:publicacionInfo.php?publi=$idPub");
+            break;
+        }
+        echo '<script>alert("No se pudo editar la Respuesta");location.href="publicacionInfo.php?publi='.$idPub.'";</script>'; 
+        break;
 }
 
 ?>

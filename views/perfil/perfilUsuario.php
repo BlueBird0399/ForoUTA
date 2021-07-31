@@ -50,10 +50,9 @@ if ($row = mysqli_fetch_assoc($busquedaU))
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li class="nav-item"><a class="nav-link" href="../../forum.php">Pagina Principal</a></li>
-                    <li class="nav-item"><a class="nav-link" href="perfilUsuario.php"><?php echo $nicU; ?></a></li>
-                    <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($fotU); ?>" alt="">  </li>
-                    <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
+                  <li class="nav-item"><a style="padding-top: 15px;" class="nav-link" href="../../forum.php">Pagina Principal</a></li>
+                  <li class="nav-item"><a class="nav-link " href="perfilUsuario.php#"><?php echo $nicU; ?> <img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($fotU); ?>" alt=""></a></li>
+                  <li class="nav-item"><a style="padding-top: 15px;" class="nav-link" href="../../controllers/session/sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>

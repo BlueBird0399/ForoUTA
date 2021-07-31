@@ -37,7 +37,7 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
+            <a class="navbar-brand" href="../../forum.php"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
                     alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -46,9 +46,8 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="../perfil/perfilUsuario.php"><?php echo $user; ?></a></li>
-                    <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
-                    <li class="nav-item"><a class="nav-link" href="../../sessionClose.php">Cerrar sesión</a></li>
+                <li class="nav-item"><a class="nav-link " href="../perfil/perfilUsuario.php#"><?php echo $user; ?> <img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt=""></a></li>
+                <li class="nav-item"><a style="padding-top: 15px;" class="nav-link" href="../../controllers/session/sessionClose.php">Cerrar sesión</a></li>i>
                 </ul>
             </div>
         </div>
@@ -96,10 +95,10 @@ $busqueda=mysqli_query($connection->getConnection(),$search);
                                 ?>
                                 </td>
                                 <td>
-                                <a class="tit-pub" href="../../perfilUsuario.php">
+                                <a class="tit-pub" <?php echo 'href="../perfil/perfilOthers.php?usced='.$row['CED_USU_CREA'].'"'  ?>>
                                     <?php echo $row['NIC_USU']; ?>
-                                    </a>
                                     <img  class="avatar"  src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">
+                                    </a>
                                 </td>
                             <td>
                                     <?php echo $row['PRE_CUR'].'$'; ?>

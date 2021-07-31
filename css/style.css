@@ -34,6 +34,7 @@ section{
 }
 .nav-link{
   color: var(--bs-table-bg);
+  font-weight: bold;
 }
 .nav-link:hover{
   color: #D51D29;

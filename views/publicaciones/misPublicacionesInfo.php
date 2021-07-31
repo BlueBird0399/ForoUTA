@@ -21,7 +21,7 @@ $sqlPubli="SELECT p.ID_PUB,p.TIT_PUB,p.IMG_PUB,p.DES_PUB,u.NIC_USU,u.FOT_USU FRO
 $executeP=mysqli_query($connection->getConnection(),$sqlPubli);
 $row = mysqli_fetch_assoc($executeP);
 //RESPUESTAS DE LA PUBLICACION SELECCIONADA
-$sqlPubliResp="SELECT d.DET_PUB,u.NIC_USU,u.FOT_USU FROM detalle_publicacion d,usuario u WHERE d.ID_PUB_PER = $publi AND d.CED_USU_PUB=u.CED_USU";
+$sqlPubliResp="SELECT d.CED_USU_PUB,d.DET_PUB,u.NIC_USU,u.FOT_USU FROM detalle_publicacion d,usuario u WHERE d.ID_PUB_PER = $publi AND d.CED_USU_PUB=u.CED_USU";
 $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
 }
 ?>
@@ -45,7 +45,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="forum.php"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
+            <a class="navbar-brand" href="../../forum.php"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
                     alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -54,9 +54,8 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link " href="../perfil/perfilUsuario.php#"><?php echo $user; ?></a></li>
-                    <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
-                    <li class="nav-item"><a class="nav-link" href="sessionClose.php">Cerrar sesión</a></li>
+                <li class="nav-item"><a class="nav-link " href="../perfil/perfilUsuario.php#"><?php echo $user; ?> <img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt=""></a></li>
+                <li class="nav-item"><a style="padding-top: 15px;" class="nav-link" href="../../controllers/session/sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -96,7 +95,6 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                     <thead class="table-dark">
                         <th>Pubicaciones</th>
                         <th></th>
-                        <th></th>
                     </thead>
                     <tbody>
                         <?php
@@ -104,7 +102,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                         <tr>
                             <td>
                             <?php
-                                echo '<a class="tit-pub" href="publicacion.php?publi='.$row["ID_PUB"].'">';
+                                echo '<a class="tit-pub" href="misPublicacionesInfo.php?publi='.$row["ID_PUB"].'">';
                                     echo $row['TIT_PUB']; 
                                     
                                 echo  '<br>';
@@ -113,13 +111,11 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                                 ?>
                             </td>
                             <td>
-                            <a href="index.html">
+                            <a href="../perfil/perfilUsuario.php" class="nic-usu">
                                 
                                     <?php echo $row['NIC_USU']; ?>
+                                    <img class="avatar"src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt=""> 
                             </a>
-                            </td>
-                            <td>
-                                  <img class="avatar"src="data:image/jpg;base64,<?php echo base64_encode($row['FOT_USU']); ?>" alt="">  
                             </td>
                         </tr>
                         <?php } ?>
@@ -133,7 +129,6 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                     <thead class="table-dark">
                         <th>Respuestas</th>
                         <th></th>
-                        <th></th>
                     </thead>
                     <tbody>
                         <?php
@@ -143,13 +138,10 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                                     <?php echo $rowr['DET_PUB'];?>
                             </td>
                             <td>
-                            <a href="index.html">
-                                
+                            <a <?php echo 'href="../perfil/perfilOthers.php?usced='.$rowr['CED_USU_PUB'].'"'  ?> class="nic-usu">
                                     <?php echo $rowr['NIC_USU']; ?>
+                                    <img class="avatar"src="data:image/jpg;base64,<?php echo base64_encode($rowr['FOT_USU']); ?>" alt=""> 
                             </a>
-                            </td>
-                            <td>
-                                  <img class="avatar"src="data:image/jpg;base64,<?php echo base64_encode($rowr['FOT_USU']); ?>" alt="">  
                             </td>
                         </tr>
                         <?php } ?>

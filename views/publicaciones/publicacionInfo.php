@@ -45,7 +45,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
     <!--NavbarSuperior-->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="forum.php"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
+            <a class="navbar-brand" href="../../forum.php"><img class="logo-brand" src="../../assets/images/Screenshot_6.png"
                     alt="logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -53,10 +53,8 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link " href="../perfil/perfilUsuario.php"><?php echo $user; ?></a></li>
-                    <li class="nav-item"><img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt="">  </li>
-                    <li class="nav-item"><a class="nav-link" href="sessionClose.php">Cerrar sesión</a></li>
+                <li class="nav-item"><a class="nav-link " href="../perfil/perfilUsuario.php#"><?php echo $user; ?> <img class="avatar-user"src="data:image/jpg;base64,<?php echo base64_encode($userAvatar); ?>" alt=""></a></li>
+                <li class="nav-item"><a style="padding-top: 15px;" class="nav-link" href="../../controllers/session/sessionClose.php">Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -108,7 +106,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                                 ?>
                             </td>
                             <td>
-                            <a href="index.html">
+                            <a class="nic-usu" href="index.html">
                                 
                                     <?php echo $row['NIC_USU']; ?>
                             </a>
@@ -123,7 +121,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                 <div class="mb-4">
                 <form action="sendReply.php" method="POST">
                 <div class="form-floating">
-                <textarea class="form-control" name="detpub" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <textarea class="form-control" name="detpub" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" required></textarea>
                 <label for="floatingTextarea2">Agrega una Respuesta</label>
                 </div>               
                 <input type="hidden" name="idpub" value="<?php echo $publi?>">
@@ -146,7 +144,7 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                                     <?php echo $rowr['DET_PUB'];?>
                             </td>
                             <td>
-                            <a href="index.html">
+                            <a class="nic-usu" href="index.html">
                                 
                                     <?php echo $rowr['NIC_USU']; ?>
                             </a>
@@ -157,8 +155,8 @@ $executePR=mysqli_query($connection->getConnection(),$sqlPubliResp);
                             <?php  if($rowr['CED_USU_PUB']==$sesssion) { ?>
                             <td>
                             <div class="mb-4">
-                            <a class="edit" style="text-align:center"  <?php echo 'href="editRespuesta.php?publi='.$rowr['ID_DET_PUB'].'"'?>>Editar</a>
-                            <a onClick="return confirm('Estas seguro de eliminar?');" class="delete" <?php echo 'href="crudPublicaciones.php?action=ddp&forum=s&publi='.$rowr['ID_DET_PUB'].'"'?>>Eliminar</a>                 
+                            <a class="edit" style="text-align:center"  <?php echo 'href="editRespuesta.php?publi='.$row["ID_PUB"].'&publiresp='.$rowr['ID_DET_PUB'].'"'?>>Editar</a>
+                            <a onClick="return confirm('Estas seguro de eliminar?');" class="delete" <?php echo 'href="crudPublicaciones.php?action=ddp&publi='.$row["ID_PUB"].'&publiresp='.$rowr['ID_DET_PUB'].'"'?>>Eliminar</a>                 
                             </div>
                             </td>
                             <?php } ?>
