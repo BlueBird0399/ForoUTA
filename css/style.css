@@ -184,4 +184,7 @@ form label{
   font-size: 23px;
   line-height: 3;
 }
+.navbar, .navbar-expand-lg, .fixed-top{
+  background-color: #ad272e;
+}
 /* -------------------------------CURSOS--------------------------------------- */
